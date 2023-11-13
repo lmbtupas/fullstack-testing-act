@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSpring, animated } from 'react-spring'
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -13,9 +14,19 @@ const LoginForm = () => {
     }
   };
 
+  const props = useSpring({
+    to: { opacity: 1, transform: 'translate3d(0,-50px,0)' },
+    from: { opacity: 0, transform: 'translate3d(0,50px,0)' },
+    delay: 500,
+  });
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="flex flex-col w-64 p-4 space-y-4 bg-white rounded shadow">
+      <animated.form 
+        onSubmit={handleSubmit} 
+        style={props}
+        className="flex flex-col w-64 p-4 space-y-4 bg-white rounded shadow"
+      >
         <input
           type="text"
           placeholder="Username"
@@ -37,7 +48,7 @@ const LoginForm = () => {
         >
           Login
         </button>
-      </form>
+      </animated.form>
     </div>
   );
 };
